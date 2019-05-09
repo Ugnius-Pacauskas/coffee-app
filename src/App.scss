@@ -1,0 +1,102 @@
+@mixin border {
+  border-radius: 8px;
+}
+
+@mixin text {
+  font-style: italic;
+}
+
+@mixin image {
+  @include border;
+  height: 100%;
+  width: 100%;
+}
+
+.coffe {
+  .item {
+    @include border;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding: 5px;
+    background-color: burlywood;
+    position: relative;
+    height: 300px;
+
+    .delete {
+      display: none;
+      position: absolute;
+      right: 10px;
+      stroke: white;
+      stroke-width: 20;
+      opacity: 0.8;
+    }
+
+    &:hover {
+      .delete {
+        display: block;
+      }
+    }
+  }
+
+  .input {
+    padding: 2px 2px 2px 2px;
+  }
+
+  .image-preview {
+    height: 180px;
+
+    .image {
+      @include image;
+      object-fit: contain;
+    }
+  }
+
+  .image-container {
+    height: 80%;
+    width: 85%;
+    margin: auto;
+    padding-top: 10px;
+
+    .image {
+      @include image;
+      object-fit: cover;
+    }
+  }
+
+  .text {
+    @include text
+  }
+
+  .name {
+    font-weight: bold;
+    @include text
+  }
+
+  .icon-coffe {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    stroke: white;
+    stroke-width: 20;
+  }
+
+  .icon-plus {
+    position: absolute;
+    top: 45%;
+    left: 48%;
+    transform: translate(-50%, -50%);
+    color: white;
+  }
+}
+
+// .coffe-item-image-container {
+//   height: 80%;
+//   width: 85%;
+//   margin: auto;
+//   padding-top: 10px;
+// }
+
+.App {
+  text-align: center;
+}
