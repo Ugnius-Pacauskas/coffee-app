@@ -1,7 +1,8 @@
-import React from "react"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoffee, faPlus } from '@fortawesome/free-solid-svg-icons'
-import { Formik, Field } from 'formik'
+import React from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCoffee, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 
 export default class ItemAdd extends React.Component
 {
@@ -9,8 +10,6 @@ export default class ItemAdd extends React.Component
         super();
         this.state = {
             showDialog: false,
-            name: '',
-            price: '',
             imageUrl: '',
         }
 
@@ -21,6 +20,7 @@ export default class ItemAdd extends React.Component
         this.setState(() => {
             return {
                 showDialog: !this.state.showDialog,
+                imageUrl: ''
             }
         })
     }
@@ -32,8 +32,6 @@ export default class ItemAdd extends React.Component
         reader.onloadend = () => {
             this.setState({
                 showDialog: this.state.showDialog,
-                name: this.state.name,
-                price: this.state.price,
                 imageUrl: reader.result,
             });
         }
@@ -48,33 +46,48 @@ export default class ItemAdd extends React.Component
                     this.state.showDialog ?
                     <div className="item">
                         <Formik
-                            initialValues={{name:'', price: '', imageUrl: ''}}
+                            initialValues={{name:'', price: '', imageUrl: '', imagePath: null}}
                             onSubmit={values =>
                                 {
-                                    this.props.addItemClicked(values);
-                                    this.showAddItemDialog();
+                                    let reader = new FileReader();
+                                    let file = values.imageUrl;
+                            
+                                    reader.onloadend = () => {
+                                        values.imageUrl = reader.result;
+                                        this.props.addItemClicked(values);
+                                        this.showAddItemDialog();
+                                    }
+                            
+                                    reader.readAsDataURL(file)
                                 }
                             }
-                            onChange={values => 
-                            {
-                                console.log(values)
-                            }}
                             onReset={() => this.showAddItemDialog()}
+                            validationSchema={Yup.object({
+                                name: Yup.string().max(23).required('Required'),
+                                price: Yup.number().min(0).max(1000).required('Required'),
+                            })}
                         >
-                            {formikProps => 
-                                <form>
+                            {(formikProps) => 
+                                <Form>
                                     <div className="row">
                                         <div className="input col">
-                                            <Field type="text" name="name" placeholder="Name" required/>
+                                            <Field type="text" name="name" placeholder="Name"/>
+                                            <ErrorMessage name="name">
+                                                {msg => <div className="field-error">{msg}</div>}
+                                            </ErrorMessage>
                                         </div>
                                         <div className="input col">
-                                            <Field type="number" name="price" placeholder="Price" step="0.1" required/>
+                                            <Field type="number" name="price" placeholder="Price" step="0.1"/>
+                                            <ErrorMessage name="price">
+                                                {msg => <div className="field-error">{msg}</div>}
+                                            </ErrorMessage>
                                         </div>
                                     </div>
-                                    {/* <div className="input">
-                                        <Field type="file" name="imageUrl" placeholder="ImageFile" accept="image/*"/>
-                                        <Field type="file" name="imageUrl" placeholder="ImageFile" accept="image/*" onChange={(event) => this.imageChange(event)}/>
-                                    </div> */}
+                                    <div className="input">
+                                        <input id="file" name="imagePath" type="file" accept="image/*" 
+                                            onChange={(event) => {formikProps.setFieldValue("imageUrl", event.currentTarget.files[0]); this.imageChange(event);}} 
+                                        />
+                                    </div>
                                     <div className="image-preview">
                                         <img className = "image" src={this.state.imageUrl} alt=""></img>
                                     </div>
@@ -86,7 +99,7 @@ export default class ItemAdd extends React.Component
                                             <button className="btn btn-dark" onClick={formikProps.handleReset}>Cancel</button>
                                         </div>
                                     </div>
-                                </form>
+                                </Form>
                             }
                         </Formik>       
                     </div>

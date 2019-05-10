@@ -5,12 +5,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons'
 class Item extends React.Component {
     constructor() {
         super();
-        // this.deleteItem = this.deleteItem.bind(this);
     }
-
-    // deleteItem() {
-
-    // }
 
     render() {
         return (

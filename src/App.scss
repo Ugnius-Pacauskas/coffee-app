@@ -12,9 +12,14 @@
   width: 100%;
 }
 
+@mixin shadow {
+  box-shadow: inset -8px -4px 20px #d3a05f;
+}
+
 .coffee {
   .item {
     @include border;
+    @include shadow;
     margin-top: 15px;
     margin-bottom: 15px;
     padding: 5px;
@@ -40,10 +45,14 @@
 
   .input {
     padding: 2px 2px 2px 2px;
+    .field-error {
+      color: darkred;
+      font-size: x-small;
+    }
   }
 
   .image-preview {
-    height: 180px;
+    height: 150px;
 
     .image {
       @include image;

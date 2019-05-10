@@ -44,7 +44,7 @@ class Board extends React.Component {
         coffeeItems.push(<AddItem key = {-1} addItemClicked = {this.addItem}/>);
 
         return (
-            <div className="row coffee">
+            <div className="row container-fluid coffee">
                 {coffeeItems}
             </div>
         )
