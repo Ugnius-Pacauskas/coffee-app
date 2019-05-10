@@ -7,7 +7,7 @@ class Board extends React.Component {
     constructor() {
         super();
         this.state = {
-            items: coffeData,
+            items: JSON.parse(window.localStorage.getItem('board')) || coffeData,
         }
 
         this.addItem = this.addItem.bind(this);
@@ -16,21 +16,27 @@ class Board extends React.Component {
 
     addItem(item) {
         this.setState(prevState => {
-            console.log(prevState)
-            console.log(item)
             item.id = Math.max(...prevState.items.map(item => item.id)) + 1;
+            let items = [...prevState.items, item];
+            this.saveLocalStorage(items)
             return {
-                items: [...prevState.items, item],
+                items: items,
             }
         })
     }
 
     deleteItem(id) {
         this.setState(prevState => {
+            let items = prevState.items.filter(item => item.id !== id)
+            this.saveLocalStorage(items)
             return {
-                items: prevState.items.filter(item => item.id !== id),
+                items: items,
             }
         })
+    }
+
+    saveLocalStorage(items) {
+        window.localStorage.setItem("board", JSON.stringify(items));
     }
 
     render() {

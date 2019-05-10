@@ -19,6 +19,20 @@ module.exports = {
           use: [{
               loader: "html-loader"
           }]
+      },
+      {
+        test: /\.(png|jpe?g)/i,
+        use: [
+          {
+            loader: "url-loader",
+            options: {
+              name: "./img/[name].[ext]",
+            }
+          },
+          {
+            loader: "img-loader"
+          }
+        ]
       }
     ]
   },
