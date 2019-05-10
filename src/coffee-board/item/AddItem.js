@@ -92,7 +92,7 @@ export default class ItemAdd extends React.Component
                     </div>
                     : 
                     <div className="item" onClick={() => this.showAddItemDialog()}>
-                        <div className = "icon-coffe">
+                        <div className = "icon-coffee">
                             <FontAwesomeIcon icon = {faCoffee} size="9x"/>
                         </div>
                         <div className = "icon-plus">

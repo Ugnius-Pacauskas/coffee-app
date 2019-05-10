@@ -4,7 +4,7 @@ import expressoImage from "../img/expresso.jpg"
 import mintMochaImage from "../img/mint-mocha.jpg"
 import mocha from "../img/mocha.jpg"
 
-const coffeData = [
+const coffeeData = [
     {
         id: 0,
         name: "Latte",
@@ -42,4 +42,4 @@ const coffeData = [
     },
 ]
 
-export default coffeData
+export default coffeeData

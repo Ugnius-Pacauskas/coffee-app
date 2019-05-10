@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.scss';
-import Board from './coffe-board/Board';
+import Board from './coffee-board/Board';
 
 function App() {
     return (

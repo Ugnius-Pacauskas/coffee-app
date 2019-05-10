@@ -1,13 +1,13 @@
 import React from "react"
 import Item from "./item/Item.js";
 import AddItem from "./item/AddItem.js";
-import coffeData from "./CoffeData.js";
+import coffeeData from "../data/CoffeeData.js";
 
 class Board extends React.Component {
     constructor() {
         super();
         this.state = {
-            items: JSON.parse(window.localStorage.getItem('board')) || coffeData,
+            items: JSON.parse(window.localStorage.getItem('board')) || coffeeData,
         }
 
         this.addItem = this.addItem.bind(this);
@@ -40,12 +40,12 @@ class Board extends React.Component {
     }
 
     render() {
-        const coffeItems = this.state.items.map(coffe => <Item key = {coffe.id} props = {coffe} deleteItemClicked = {this.deleteItem}/>);
-        coffeItems.push(<AddItem key = {-1} addItemClicked = {this.addItem}/>);
+        const coffeeItems = this.state.items.map(coffee => <Item key = {coffee.id} props = {coffee} deleteItemClicked = {this.deleteItem}/>);
+        coffeeItems.push(<AddItem key = {-1} addItemClicked = {this.addItem}/>);
 
         return (
-            <div className="row coffe">
-                {coffeItems}
+            <div className="row coffee">
+                {coffeeItems}
             </div>
         )
     }
