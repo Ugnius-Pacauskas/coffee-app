@@ -3,23 +3,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 
 class Item extends React.Component {
-    constructor() {
-        super();
-    }
-
     render() {
         return (
             <div className="col-lg-3 col-md-6">
                 <div className="item">
-                    <FontAwesomeIcon className = "delete" icon = {faTimes} size="2x" onClick = {() => this.props.deleteItemClicked(this.props.props.id)}/>
+                    <FontAwesomeIcon className = "delete" icon = {faTimes} size="2x" onClick = {() => this.props.deleteItemClicked(this.props.data.id)}/>
                     <div className = "image-container">
-                        <img className = "image" src={this.props.props.imageUrl} alt={this.props.props.alt}></img>
+                        <img className = "image" src={this.props.data.imageUrl} alt={this.props.data.alt}></img>
                     </div>
                     <div className = "name">
-                        {this.props.props.name}
+                        {this.props.data.name}
                     </div>
                     <div className = "text">
-                        {this.props.props.price.toLocaleString("lookup", {style: "currency", currency: "EUR"})}
+                        {this.props.data.price.toLocaleString("lookup", {style: "currency", currency: "EUR"})}
                     </div>
                 </div>
             </div>
