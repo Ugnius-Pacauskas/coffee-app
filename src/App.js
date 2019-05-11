@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import './App.scss';
 import Board from './components/coffee-board/Board';
+import coffeeData from './data/CoffeeData'
 
 function App() {
     const [coffe_board_data, setData] = useState(JSON.parse(window.localStorage.getItem('board')) || coffeeData)
